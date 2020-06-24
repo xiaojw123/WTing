@@ -1,0 +1,4 @@
+rootProject.name='WTing'
+include ':lib_base'
+include ':app'
+

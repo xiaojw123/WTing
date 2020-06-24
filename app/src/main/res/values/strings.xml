@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">WTing</string>
+    <string name="recommend_mv">推荐MV</string>
+    <string name="songer_rank">歌手榜</string>
+    <string name="song_rank">歌单</string>
+    <string name="list_rank">榜单排行</string>
+</resources>
