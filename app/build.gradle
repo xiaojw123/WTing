@@ -36,6 +36,6 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation  project(':lib_base')
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'com.youth.banner:banner:2.0.12'
 
 }

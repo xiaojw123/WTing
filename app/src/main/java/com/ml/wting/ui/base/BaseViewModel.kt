@@ -5,10 +5,12 @@ import com.ml.lib_base.net.ApiService
 import com.ml.lib_base.net.HttpManager
 import com.ml.lib_base.rx.RxCallBack
 import com.ml.lib_base.rx.RxHelper
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.Observer
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.disposables.Disposable
+import com.ml.lib_base.util.APPLOG
+import io.reactivex.Observable
+import io.reactivex.Observer
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
+
 
 open class BaseViewModel:ViewModel(){
 
@@ -22,22 +24,28 @@ open class BaseViewModel:ViewModel(){
     }
 
 
-    fun  <T> request(observable:  Observable<T>,callBack: RxCallBack<T> ){
+    fun  <T> request(observable: Observable<T>, callBack: RxCallBack<T> ){
         observable.compose(RxHelper.IO_Transfomer()).subscribe(
-            object:Observer<T>{
+            object: Observer<T> {
                 override fun onComplete() {
                     callBack.onComplete()
                 }
 
-                override fun onSubscribe(d: Disposable?) {
-                    taskDisposables.add(d)
-                }
+
 
                 override fun onNext(t: T) {
+                    APPLOG.printDebug("onNext__"+t)
                     callBack.onResut(t)
                 }
 
-                override fun onError(e: Throwable?) {
+
+
+                override fun onSubscribe(d: Disposable) {
+                    taskDisposables.add(d)
+                }
+
+                override fun onError(e: Throwable) {
+                    APPLOG.printDebug("onError__"+e)
                     callBack.onError()
                 }
 

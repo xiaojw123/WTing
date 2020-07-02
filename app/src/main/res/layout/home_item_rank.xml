@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:layout_marginTop="20dp"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <LinearLayout
+        style="@style/home_rank_style_container"
+        >
+
+
+
+        <ImageView
+            style="@style/home_rank_style_icon"
+            android:src="@mipmap/ic_mv"
+            />
+
+
+        <TextView
+            style="@style/home_rank_style_text"
+            android:text="@string/recommend_mv"
+            />
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/home_rank_style_container"
+        >
+
+
+
+        <ImageView
+            style="@style/home_rank_style_icon"
+            android:src="@mipmap/ic_songer"
+            />
+
+
+        <TextView
+            style="@style/home_rank_style_text"
+            android:text="@string/songer_rank"
+            />
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/home_rank_style_container"
+        >
+
+
+
+        <ImageView
+            style="@style/home_rank_style_icon"
+            android:src="@mipmap/ic_songlist"
+            />
+
+
+        <TextView
+            style="@style/home_rank_style_text"
+            android:text="@string/song_rank"
+            />
+
+
+
+    </LinearLayout>
+    <LinearLayout
+        style="@style/home_rank_style_container"
+        >
+
+
+
+        <ImageView
+            style="@style/home_rank_style_icon"
+            android:src="@mipmap/ic_rank"
+            />
+
+
+        <TextView
+            style="@style/home_rank_style_text"
+            android:text="@string/list_rank"
+            />
+
+
+
+    </LinearLayout>
+</LinearLayout>
+
+
