@@ -10,6 +10,7 @@
 
 
     <LinearLayout
+        android:id="@+id/home_rank_mv"
         style="@style/home_rank_style_container"
         >
 
@@ -31,6 +32,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/home_rank_songer"
         style="@style/home_rank_style_container"
         >
 
@@ -52,6 +54,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/home_rank_songlist"
         style="@style/home_rank_style_container"
         >
 
@@ -72,6 +75,7 @@
 
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/home_rank_list"
         style="@style/home_rank_style_container"
         >
 

@@ -1,4 +1,4 @@
-package com.ml.wting.ui.view.adapter
+package com.ml.wting.view.adapter
 
 import android.content.Context
 import android.view.View

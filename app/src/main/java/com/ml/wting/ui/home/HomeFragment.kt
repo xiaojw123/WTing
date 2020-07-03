@@ -17,13 +17,12 @@ import com.ml.wting.repository.model.BannerItem
 import com.ml.wting.repository.model.CategoryItem
 import com.ml.wting.repository.viewmodel.HomeViewModel
 import com.ml.wting.ui.base.BaseFragment
-import com.ml.wting.ui.view.adapter.HomeBannerAdapter
-import com.ml.wting.ui.view.adapter.HomeCategoryAdapter
-import com.ml.wting.util.CommonUtil
+import com.ml.wting.view.adapter.HomeBannerAdapter
+import com.ml.wting.view.adapter.HomeCategoryAdapter
+import com.ml.lib_base.util.CommonUtil
 import com.youth.banner.Banner
 import com.youth.banner.indicator.CircleIndicator
 import com.youth.banner.listener.OnBannerListener
-
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     companion object {
 
@@ -199,7 +198,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
     inner class BannerHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    inner class RankHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    inner class RankHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+
+
+        var rankMV:ViewGroup
+        var rankSonger:ViewGroup
+        init {
+            rankMV=itemView.findViewById(R.id.home_rank_mv)
+            rankSonger=itemView.findViewById(R.id.home_rank_songer)
+
+        }
+
+
+
+
+    }
 
     inner class CategoryHolder(type: Int, itemView: View) : RecyclerView.ViewHolder(itemView) {
 

@@ -1,4 +1,4 @@
-package com.ml.wting.ui.view.adapter
+package com.ml.wting.view.adapter
 
 import android.content.Context
 import android.view.View
@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ml.lib_base.util.DrawableUtil
 import com.ml.wting.R
 import com.ml.wting.repository.model.CategoryItem
-import com.ml.wting.util.CommonUtil
+import com.ml.lib_base.util.CommonUtil
 
 class HomeCategoryAdapter(items: List<CategoryItem>) :
     RecyclerView.Adapter<HomeCategoryAdapter.Holder>() {

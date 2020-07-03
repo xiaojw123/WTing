@@ -3,7 +3,10 @@ package com.ml.lib_base.rx
 interface RxCallBack<T> {
 
 
-    fun onResut(result: T)
+    fun onResut(result: T){
+
+
+    }
 
     fun onError() {
 
@@ -12,5 +15,12 @@ interface RxCallBack<T> {
     fun onComplete() {
 
     }
+
+
+    fun onResut(result: List<T>){
+
+
+    }
+
 
 }
