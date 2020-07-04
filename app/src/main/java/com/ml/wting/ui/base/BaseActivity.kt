@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.ml.lib_base.util.APPLOG
 import java.lang.reflect.ParameterizedType
 
 abstract class BaseActivity<T : ViewDataBinding, VM : ViewModel> : AppCompatActivity() {
@@ -18,14 +19,18 @@ abstract class BaseActivity<T : ViewDataBinding, VM : ViewModel> : AppCompatActi
         if (type is ParameterizedType) {
             val paramType1 = type.actualTypeArguments[0]
             val paramType2 = type.actualTypeArguments[1]
-            if (paramType1 is ViewDataBinding) {
+            if (paramType1.typeName.equals("androidx.databinding.ViewDataBinding")) {
                 setContentView(getLayoutRes())
             } else {
                 mBindng = DataBindingUtil.setContentView(this, getLayoutRes())
             }
-            if (paramType2 !is ViewModel) {
-                mViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-                    .create(paramType2 as Class<VM>)
+            if (!paramType2.typeName.equals("androidx.lifecycle.ViewModel")) {
+                try {
+                    mViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(application)
+                        .create(paramType2 as Class<VM>)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
         }
 

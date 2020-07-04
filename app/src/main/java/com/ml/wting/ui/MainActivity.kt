@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.util.SparseArray
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
 import com.ml.wting.R
 import com.ml.wting.databinding.ActivityMainBinding
 import com.ml.wting.ui.base.BaseActivity
 import com.ml.wting.ui.home.HomeFragment
 
 //http://neteasecloudmusicapi.zhaoboy.com/banner
-class MainActivity : BaseActivity<ActivityMainBinding>() {
+class MainActivity : BaseActivity<ActivityMainBinding,ViewModel>() {
 
 
     var mFragmentArray = SparseArray<Fragment>()

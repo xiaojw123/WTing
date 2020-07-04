@@ -15,14 +15,14 @@
 
 
     <TextView
-        android:id="@+id/item_category_song"
+        android:id="@+id/item_category_title"
         android:layout_marginTop="20dp"
         android:singleLine="true"
         android:ellipsize="end"
         style="@style/base_text_style" />
 
     <TextView
-        android:id="@+id/item_category_songer"
+        android:id="@+id/item_category_author"
         android:layout_marginTop="10dp"
         android:singleLine="true"
         android:ellipsize="end"

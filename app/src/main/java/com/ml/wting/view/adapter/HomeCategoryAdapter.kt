@@ -36,9 +36,9 @@ class HomeCategoryAdapter(items: List<CategoryItem>) :
 
             categoryImg = itemview.findViewById(R.id.item_category_img)
 
-            categoryName = itemview.findViewById(R.id.item_category_song)
+            categoryName = itemview.findViewById(R.id.item_category_title)
 
-            categoryAuthor = itemview.findViewById(R.id.item_category_songer)
+            categoryAuthor = itemview.findViewById(R.id.item_category_author)
 
 
         }

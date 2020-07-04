@@ -16,11 +16,11 @@ import io.reactivex.disposables.Disposable
 open class BaseViewModel:ViewModel(){
 
     var taskDisposables: CompositeDisposable
-    var apiService: ApiService?
+    var apiService: ApiService
 
     init {
         taskDisposables= CompositeDisposable()
-        apiService= HttpManager.getInstance()?.getApiService(ApiService::class.java)
+        apiService= HttpManager.getInstance()!!.getApiService(ApiService::class.java)
 
     }
 

@@ -35,6 +35,14 @@ interface ApiService {
     @GET("mv/first")
     fun  getRankNewMV():Observable<BaseResult<MVEntity>>
 
+    @GET("toplist/artist")
+    fun  getArtistList():Observable<JsonObject>
+
+    @GET("top/list")
+    fun  getRankList(@Query("id") id:String):Observable<JsonObject>
+
+
+
 
 
 

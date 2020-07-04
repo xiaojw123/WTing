@@ -9,5 +9,6 @@
 
     <dimen name="ts_20">20sp</dimen>
     <dimen name="ts_22">22sp</dimen>
+    <dimen name="ts_31">31sp</dimen>
 
 </resources>
