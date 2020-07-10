@@ -14,6 +14,8 @@ object Constant {
 
     const val PAGE_TYPE="pg_type";
 
+    const val ID="id"
+
 
 
 }

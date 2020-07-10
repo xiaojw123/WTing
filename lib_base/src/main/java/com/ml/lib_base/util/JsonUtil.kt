@@ -12,8 +12,19 @@ object JsonUtil {
     private val jsParser = JsonParser()
 
 
-    fun String2Object(json: String): JsonObject {
+    val gson by lazy {
+        Gson()
+
+    }
+
+
+    fun String2JS(json: String): JsonObject {
         return jsParser.parse(json).asJsonObject
+    }
+
+    fun <T> String2Bean(jle: JsonElement, clss: Class<T>):T{
+        return gson.fromJson(jle, clss)
+
     }
 
 
@@ -22,7 +33,7 @@ object JsonUtil {
 
         val array = json.asJsonArray
 
-        val gson = Gson()
+
         val list = ArrayList<T>()
         for (element in array) {
 

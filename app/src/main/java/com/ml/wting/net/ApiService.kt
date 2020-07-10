@@ -42,6 +42,10 @@ interface ApiService {
     fun  getRankList(@Query("id") id:String):Observable<JsonObject>
 
 
+    @GET("mv/detail")
+    fun getMVDetail(@Query("mvid") mvid:String):Observable<JsonObject>
+
+
 
 
 
