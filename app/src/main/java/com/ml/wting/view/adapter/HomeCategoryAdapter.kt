@@ -10,18 +10,23 @@ import com.ml.lib_base.util.DrawableUtil
 import com.ml.wting.R
 import com.ml.wting.repository.model.CategoryItem
 import com.ml.lib_base.util.CommonUtil
+import com.ml.wting.ui.home.HomeFragment
+import com.ml.wting.ui.home.MVDetailActivity
+import com.ml.wting.util.Constant
 
-class HomeCategoryAdapter(items: List<CategoryItem>) :
+class HomeCategoryAdapter(type:Int,items: List<CategoryItem>) :
     RecyclerView.Adapter<HomeCategoryAdapter.Holder>() {
 
 
 
+    var mType:Int
 
     var mItems: List<CategoryItem>
     lateinit var mContext: Context
 
     init {
         mItems = items
+        mType=type
     }
 
 
@@ -31,6 +36,14 @@ class HomeCategoryAdapter(items: List<CategoryItem>) :
         var categoryImg: ImageView
         var categoryName: TextView
         var categoryAuthor: TextView
+        val clickLi=View.OnClickListener{
+            when(mType){
+                HomeFragment.TYPE_M_RECOMMEND->CommonUtil.sGotoPage(mContext,MVDetailActivity::class.java,
+                    Constant.ID,it.tag as Int)
+            }
+
+
+        }
 
         init {
 
@@ -39,6 +52,7 @@ class HomeCategoryAdapter(items: List<CategoryItem>) :
             categoryName = itemview.findViewById(R.id.item_category_title)
 
             categoryAuthor = itemview.findViewById(R.id.item_category_author)
+            itemview.setOnClickListener(clickLi)
 
 
         }
@@ -69,6 +83,7 @@ class HomeCategoryAdapter(items: List<CategoryItem>) :
         )
         holder.categoryName.setText(item.name)
         holder.categoryAuthor.setText(item.artistName)
+        holder.itemView.setTag(item.id)
 
 
     }

@@ -135,7 +135,7 @@ class HomeAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHold
                 }
                 holder.categoryTv.setText(titleName)
                 val categoryItems = mCategoryArray[position]
-                holder.categoryRLV.adapter = HomeCategoryAdapter(categoryItems)
+                holder.categoryRLV.adapter = HomeCategoryAdapter(position,categoryItems)
             }
         }
 
@@ -195,7 +195,6 @@ class HomeAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHold
 
         var categoryTv: TextView
         var categoryRLV: RecyclerView
-
         init {
             categoryTv = itemView.findViewById(R.id.home_category_tv)
             categoryRLV = itemView.findViewById(R.id.home_category_rlv)
@@ -206,7 +205,11 @@ class HomeAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHold
             }
             categoryRLV.layoutManager = gm
             categoryRLV.addItemDecoration(SpaceDecoration(5, context!!))
+
+
         }
+
+
 
     }
 }

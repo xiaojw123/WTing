@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.gyf.immersionbar.ImmersionBar
 import com.ml.lib_base.util.APPLOG
 import java.lang.reflect.ParameterizedType
 
@@ -33,7 +34,7 @@ abstract class BaseActivity<T : ViewDataBinding, VM : ViewModel> : AppCompatActi
                 }
             }
         }
-
+        ImmersionBar.with(this).init()
         initView()
     }
 

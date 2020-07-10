@@ -4,10 +4,10 @@
     <string name="songer_rank">歌手榜</string>
     <string name="song_rank">歌单</string>
     <string name="list_rank">榜单排行</string>
-    <string name="publish">发行: </string>
-    <string name="play_count">播放次数：</string>
-    <string name="like">点赞: </string>
-    <string name="collection">收藏: </string>
-    <string name="comment">评论: </string>
-    <string name="share">分享: </string>
+    <string name="publish">发行:&#160;</string>
+    <string name="play_count">播放次数:&#160;</string>
+    <string name="like">点赞:&#160;</string>
+    <string name="collection">收藏:&#160;</string>
+    <string name="comment">评论:&#160;</string>
+    <string name="share">分享:&#160;</string>
 </resources>

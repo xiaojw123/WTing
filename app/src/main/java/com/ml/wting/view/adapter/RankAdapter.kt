@@ -15,11 +15,13 @@ import com.ml.wting.R
 import com.ml.wting.repository.model.ArtistItem
 import com.ml.wting.repository.model.MVEntity
 import com.ml.wting.repository.model.SongListItem
+import com.ml.wting.ui.home.MVDetailActivity
 import com.ml.wting.util.Constant
 import io.reactivex.internal.fuseable.HasUpstreamObservableSource
 
 import kotlinx.android.synthetic.main.list_item_category.*
 import kotlinx.android.synthetic.main.list_item_songer.*
+import kotlin.reflect.typeOf
 
 class RankAdapter<T>() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -44,11 +46,28 @@ class RankAdapter<T>() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         var titleTv: TextView
         var img: ImageView
 
+        private val clickLi=object :View.OnClickListener{
+
+            override fun onClick(v: View?) {
+
+                when(mType){
+                    Constant.TYPE_MV-> CommonUtil.sGotoPage(mContext!!,MVDetailActivity::class.java,Constant.ID,itemView.tag as Int)
+
+                }
+
+            }
+
+
+        }
+
         init {
             authorTv = itemView.findViewById(R.id.item_category_author)
             titleTv = itemView.findViewById(R.id.item_category_title)
             img = itemView.findViewById(R.id.item_category_img)
+            itemView.setOnClickListener(clickLi)
         }
+
+
 
     }
 
@@ -157,6 +176,7 @@ class RankAdapter<T>() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                         title = item.name
                         author = item.artistName
                         imgUrl = item.cover
+                        holder.itemView.tag=item.id
                     }
 
                 }

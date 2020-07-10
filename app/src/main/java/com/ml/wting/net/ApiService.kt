@@ -43,7 +43,7 @@ interface ApiService {
 
 
     @GET("mv/detail")
-    fun getMVDetail(@Query("mvid") mvid:String):Observable<JsonObject>
+    fun getMVDetail(@Query("mvid") mvid:Int):Observable<JsonObject>
 
 
 

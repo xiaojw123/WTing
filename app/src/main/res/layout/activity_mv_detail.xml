@@ -24,7 +24,7 @@
             <VideoView
                 android:id="@+id/mv_detail_video"
                 android:layout_width="match_parent"
-                android:layout_height="500dp" />
+                android:layout_height="300dp" />
 
             <TextView
                 style="@style/text_bold_style"
@@ -72,6 +72,7 @@
 
             <TextView
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
                 style="@style/base_text_style"
                 android:text='@{@string/like+detail.likeCount}'
                 />
@@ -79,12 +80,14 @@
 
             <TextView
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
                 style="@style/base_text_style"
-                android:text='@{@string/collection+detail.subCount}'
+                android:text='@{@string/collection++detail.subCount}'
                 />
 
             <TextView
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
                 style="@style/base_text_style"
                 android:text='@{@string/comment+detail.commentCount}'
                 />
@@ -92,6 +95,7 @@
 
             <TextView
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
                 style="@style/base_text_style"
                 android:text='@{@string/share+detail.shareCount}'
                 />
