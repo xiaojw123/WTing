@@ -1,5 +1,6 @@
 package com.ml.wting.view.adapter
 
+import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
@@ -10,23 +11,24 @@ import com.ml.lib_base.util.DrawableUtil
 import com.ml.wting.R
 import com.ml.wting.repository.model.CategoryItem
 import com.ml.lib_base.util.CommonUtil
+import com.ml.wting.ui.base.BaseActivity
 import com.ml.wting.ui.home.HomeFragment
 import com.ml.wting.ui.home.MVDetailActivity
+import com.ml.wting.ui.home.SongDetailActivity
 import com.ml.wting.util.Constant
 
-class HomeCategoryAdapter(type:Int,items: List<CategoryItem>) :
+class HomeCategoryAdapter(type: Int, items: List<CategoryItem>) :
     RecyclerView.Adapter<HomeCategoryAdapter.Holder>() {
 
 
-
-    var mType:Int
+    var mType: Int
 
     var mItems: List<CategoryItem>
     lateinit var mContext: Context
 
     init {
         mItems = items
-        mType=type
+        mType = type
     }
 
 
@@ -36,12 +38,19 @@ class HomeCategoryAdapter(type:Int,items: List<CategoryItem>) :
         var categoryImg: ImageView
         var categoryName: TextView
         var categoryAuthor: TextView
-        val clickLi=View.OnClickListener{
-            when(mType){
-                HomeFragment.TYPE_M_RECOMMEND->CommonUtil.sGotoPage(mContext,MVDetailActivity::class.java,
-                    Constant.ID,it.tag as Int)
-            }
+        val clickLi = View.OnClickListener {
 
+            val clss = if (mType == HomeFragment.TYPE_M_RECOMMEND)
+                MVDetailActivity::class.java
+            else
+                SongDetailActivity::class.java
+
+            CommonUtil.sGotoPage(
+                mContext,
+                clss,
+                Constant.ID,
+                it
+            )
 
         }
 

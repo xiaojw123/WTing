@@ -4,6 +4,8 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.ml.wting.repository.model.BaseResult
 import com.ml.wting.repository.model.MVEntity
+import com.ml.wting.repository.model.RankEntity
+import io.reactivex.Flowable
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -39,11 +41,24 @@ interface ApiService {
     fun  getArtistList():Observable<JsonObject>
 
     @GET("top/list")
-    fun  getRankList(@Query("id") id:String):Observable<JsonObject>
+    fun  getRankList(@Query("idx") id:Int):Flowable<RankEntity>
 
 
     @GET("mv/detail")
     fun getMVDetail(@Query("mvid") mvid:Int):Observable<JsonObject>
+
+    @GET("artists")
+    fun getSongerArtists(@Query("id") id:Int):Observable<JsonObject>
+
+    @GET("song/detai")
+    fun  getSongDetail(@Query("ids") ids:Int):Observable<JsonObject>
+
+    @GET("song/url")
+    fun  getSongUrl(@Query("id") id:Int):Observable<JsonObject>
+
+
+
+
 
 
 

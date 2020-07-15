@@ -1,26 +1,29 @@
 package com.ml.wting.view.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.os.Build
+import android.os.Parcelable
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.JsonObject
 import com.ml.lib_base.util.APPLOG
 import com.ml.lib_base.util.CommonUtil
 import com.ml.lib_base.util.DXUtil
 import com.ml.lib_base.util.DrawableUtil
 import com.ml.wting.R
-import com.ml.wting.repository.model.ArtistItem
-import com.ml.wting.repository.model.MVEntity
-import com.ml.wting.repository.model.SongListItem
+import com.ml.wting.repository.model.*
 import com.ml.wting.ui.home.MVDetailActivity
+import com.ml.wting.ui.home.SonglistActivity
 import com.ml.wting.util.Constant
 import io.reactivex.internal.fuseable.HasUpstreamObservableSource
 
 import kotlinx.android.synthetic.main.list_item_category.*
 import kotlinx.android.synthetic.main.list_item_songer.*
+import java.util.ArrayList
 import kotlin.reflect.typeOf
 
 class RankAdapter<T>() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -38,6 +41,48 @@ class RankAdapter<T>() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         mType = viewType
     }
 
+
+
+
+    private val clickLi = object : View.OnClickListener {
+
+        override fun onClick(v: View?) {
+
+            when (mType) {
+                Constant.TYPE_MV -> CommonUtil.sGotoPage(
+                    mContext!!,
+                    MVDetailActivity::class.java,
+                    Constant.ID,
+                    v?.tag as Int
+                )
+
+                Constant.TYPE_SONGLIST, Constant.TYPE_SONGER -> CommonUtil.sGotoPage(
+                    mContext!!,
+                    SonglistActivity::class.java,
+                    Constant.ID,
+                    v?.tag as Int
+                )
+                Constant.TYPE_RANKLIST -> {
+
+                    val intent = Intent(mContext,SonglistActivity::class.java)
+                    intent.putParcelableArrayListExtra(
+                        Constant.SONG_LIST,
+                        v?.tag as ArrayList<SongItem>
+                    )
+                    intent.putExtra(Constant.PAGE_TYPE, Constant.TYPE_RANKLIST)
+                    mContext?.startActivity(intent)
+
+
+                }
+
+
+            }
+
+        }
+
+
+    }
+
     //mv 歌单、榜单通用
 
     inner class CommonHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -46,19 +91,6 @@ class RankAdapter<T>() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         var titleTv: TextView
         var img: ImageView
 
-        private val clickLi=object :View.OnClickListener{
-
-            override fun onClick(v: View?) {
-
-                when(mType){
-                    Constant.TYPE_MV-> CommonUtil.sGotoPage(mContext!!,MVDetailActivity::class.java,Constant.ID,itemView.tag as Int)
-
-                }
-
-            }
-
-
-        }
 
         init {
             authorTv = itemView.findViewById(R.id.item_category_author)
@@ -66,7 +98,6 @@ class RankAdapter<T>() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             img = itemView.findViewById(R.id.item_category_img)
             itemView.setOnClickListener(clickLi)
         }
-
 
 
     }
@@ -91,6 +122,7 @@ class RankAdapter<T>() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             nameTv = itemView.findViewById(R.id.item_songer_name)
             avatarImg = itemView.findViewById(R.id.item_songer_img)
             hotTv = itemView.findViewById(R.id.item_songer_hot)
+            itemView.setOnClickListener(clickLi)
 
 
         }
@@ -176,19 +208,27 @@ class RankAdapter<T>() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                         title = item.name
                         author = item.artistName
                         imgUrl = item.cover
-                        holder.itemView.tag=item.id
+                        holder.itemView.tag = item.id
                     }
 
                 }
                 Constant.TYPE_SONGLIST -> {
 
                     if (item is SongListItem) {
-                        title=item.name
-                        author=item.creator.nickname
-                        imgUrl=item.coverImgUrl
-
+                        title = item.name
+                        author = item.creator.nickname
+                        imgUrl = item.coverImgUrl
+                        holder.itemView.tag = item.id
                     }
 
+
+                }
+                Constant.TYPE_RANKLIST -> {
+                    if (item is RankEntity) {
+                        title = item.playlist.name
+                        imgUrl = item.playlist.coverImgUrl
+                        holder.itemView.tag = item.songList
+                    }
 
                 }
 
@@ -206,10 +246,9 @@ class RankAdapter<T>() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
                 holder.nameTv.setText(item.name)
                 holder.hotTv.setText(item.score.toString())
-                holder.rankTv.setText((position+1).toString())
-                DrawableUtil.loadRound(mContext, item.picUrl,10f, holder.avatarImg)
-
-
+                holder.rankTv.setText((position + 1).toString())
+                DrawableUtil.loadRound(mContext, item.picUrl, 10f, holder.avatarImg)
+                holder.itemView.tag = item.id
             }
 
 

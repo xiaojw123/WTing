@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <data>
+
+        <variable
+            name="detail"
+            type="com.ml.wting.repository.model.SongItem" />
+
+
+
+    </data>
+
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/song_detail_name"
+            style="@style/base_text_style"
+            android:textSize="@dimen/ts_22"
+            android:textColor="@android:color/white"
+            android:text="@{detail.name}"
+            />
+
+
+        <TextView
+            style="@style/base_text_style"
+            android:layout_below="@+id/song_detail_name"
+            android:textSize="@dimen/ts_12"
+            android:textColor="@android:color/white"
+            android:text="@{detail.songer}"
+            />
+
+
+
+
+
+        
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/song_detail_img"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:civ_border_color="@android:color/white"
+            app:civ_border_width="2dp"
+            android:layout_centerInParent="true"
+            />
+
+
+
+
+
+
+    </RelativeLayout>
+
+
+</layout>

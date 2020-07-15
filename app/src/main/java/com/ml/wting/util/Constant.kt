@@ -15,7 +15,12 @@ object Constant {
 
     const val PAGE_TYPE="pg_type";
 
+    const val PAGE_FROM="pg_from"
+    const val HOME_PAGE_MORE="home_page_more"
+
+
     const val ID="id"
+    const val SONG_LIST="song_list"
 
 
 

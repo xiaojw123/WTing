@@ -1,36 +1,34 @@
 package com.ml.wting.view.adapter;
 
 import android.content.Context
-import com.ml.wting.repository.model.BannerItem
-import com.youth.banner.listener.OnBannerListener
-import com.ml.wting.view.adapter.HomeBannerAdapter
-import com.ml.wting.view.adapter.HomeCategoryAdapter
-import com.ml.lib_base.util.CommonUtil
-import com.youth.banner.Banner
-import com.youth.banner.indicator.CircleIndicator
-import androidx.recyclerview.widget.RecyclerView
-import com.ml.lib_base.util.APPLOG
-import com.ml.lib_base.util.DXUtil
-import com.ml.lib_base.view.decoration.SpaceDecoration
-import com.ml.wting.repository.model.CategoryItem
 import android.util.SparseArray
 import android.view.View
-
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
-
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.ml.lib_base.util.APPLOG
+import com.ml.lib_base.util.CommonUtil
+import com.ml.lib_base.util.DXUtil
+import com.ml.lib_base.view.decoration.SpaceDecoration
 import com.ml.wting.R
+import com.ml.wting.repository.model.BannerItem
+import com.ml.wting.repository.model.CategoryItem
 import com.ml.wting.ui.home.HomeFragment.Companion.TYPE_BANNER
 import com.ml.wting.ui.home.HomeFragment.Companion.TYPE_M_RECOMMEND
 import com.ml.wting.ui.home.HomeFragment.Companion.TYPE_RANK
 import com.ml.wting.ui.home.HomeFragment.Companion.TYPE_S_NEW
 import com.ml.wting.ui.home.RankActivity
+import com.ml.wting.ui.home.SongDetailActivity
 import com.ml.wting.util.Constant
+import com.youth.banner.Banner
+import com.youth.banner.indicator.CircleIndicator
+import com.youth.banner.listener.OnBannerListener
+import kotlin.reflect.typeOf
 
 class HomeAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
-    OnBannerListener<BannerItem> {
+    OnBannerListener<BannerItem>, View.OnClickListener {
 
     var context: Context
 
@@ -135,7 +133,7 @@ class HomeAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHold
                 }
                 holder.categoryTv.setText(titleName)
                 val categoryItems = mCategoryArray[position]
-                holder.categoryRLV.adapter = HomeCategoryAdapter(position,categoryItems)
+                holder.categoryRLV.adapter = HomeCategoryAdapter(position, categoryItems)
             }
         }
 
@@ -144,6 +142,16 @@ class HomeAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHold
 
     override fun OnBannerClick(data: BannerItem?, position: Int) {
 
+        if (data == null) {
+            CommonUtil.toast(context, "未找到歌曲")
+            return
+        }
+
+        CommonUtil.sGotoPage(
+            context, SongDetailActivity::class.java,
+            Constant.ID,
+            data.targetId
+        )
 
     }
 
@@ -156,14 +164,14 @@ class HomeAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHold
 
         var rankMV: ViewGroup
         var rankSonger: ViewGroup
-        var rankSongList:ViewGroup
-        var ranlist:ViewGroup
+        var rankSongList: ViewGroup
+        var ranlist: ViewGroup
 
         init {
             rankMV = itemView.findViewById(R.id.home_rank_mv)
             rankSonger = itemView.findViewById(R.id.home_rank_songer)
-            rankSongList=itemView.findViewById(R.id.home_rank_songlist)
-            ranlist=itemView.findViewById(R.id.home_rank_list)
+            rankSongList = itemView.findViewById(R.id.home_rank_songlist)
+            ranlist = itemView.findViewById(R.id.home_rank_list)
             rankMV.setOnClickListener(this)
             rankSonger.setOnClickListener(this)
             rankSongList.setOnClickListener(this)
@@ -195,6 +203,7 @@ class HomeAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHold
 
         var categoryTv: TextView
         var categoryRLV: RecyclerView
+
         init {
             categoryTv = itemView.findViewById(R.id.home_category_tv)
             categoryRLV = itemView.findViewById(R.id.home_category_rlv)
@@ -205,11 +214,25 @@ class HomeAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHold
             }
             categoryRLV.layoutManager = gm
             categoryRLV.addItemDecoration(SpaceDecoration(5, context!!))
-
-
+            categoryTv.setTag(type)
+            categoryTv.setOnClickListener(this@HomeAdapter)
         }
 
 
-
     }
+
+    override fun onClick(v: View?) {
+
+
+        CommonUtil.sGotoPage(
+            context,
+            RankActivity::class.java,
+            Constant.PAGE_TYPE,
+            v?.tag as Int,
+            Constant.PAGE_FROM,
+            Constant.HOME_PAGE_MORE
+        )
+    }
+
+
 }

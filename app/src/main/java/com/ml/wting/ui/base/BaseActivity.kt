@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.gyf.immersionbar.ImmersionBar
 import com.ml.lib_base.util.APPLOG
+import com.ml.wting.util.Constant
 import java.lang.reflect.ParameterizedType
 
 abstract class BaseActivity<T : ViewDataBinding, VM : ViewModel> : AppCompatActivity() {
@@ -40,4 +41,9 @@ abstract class BaseActivity<T : ViewDataBinding, VM : ViewModel> : AppCompatActi
 
     abstract fun initView();
     abstract fun getLayoutRes(): Int
+
+    fun getId(): Int {
+        return intent.getIntExtra(Constant.ID, Constant.INVALID_VALUE)
+    }
+
 }
