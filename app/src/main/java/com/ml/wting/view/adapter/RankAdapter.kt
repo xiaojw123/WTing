@@ -17,6 +17,7 @@ import com.ml.lib_base.util.DrawableUtil
 import com.ml.wting.R
 import com.ml.wting.repository.model.*
 import com.ml.wting.ui.home.MVDetailActivity
+import com.ml.wting.ui.home.SongDetailActivity
 import com.ml.wting.ui.home.SonglistActivity
 import com.ml.wting.util.Constant
 import io.reactivex.internal.fuseable.HasUpstreamObservableSource
@@ -42,13 +43,19 @@ class RankAdapter<T>() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
 
-
-
     private val clickLi = object : View.OnClickListener {
 
         override fun onClick(v: View?) {
 
             when (mType) {
+                Constant.TYPE_NEW_SONG ->
+                    CommonUtil.sGotoPage(
+                        mContext!!,
+                        SongDetailActivity::class.java,
+                        Constant.ID,
+                        v?.tag as Int
+                    )
+
                 Constant.TYPE_MV -> CommonUtil.sGotoPage(
                     mContext!!,
                     MVDetailActivity::class.java,
@@ -60,16 +67,18 @@ class RankAdapter<T>() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     mContext!!,
                     SonglistActivity::class.java,
                     Constant.ID,
-                    v?.tag as Int
+                    v?.tag as Int,
+                    Constant.PAGE_TYPE,
+                    mType
                 )
                 Constant.TYPE_RANKLIST -> {
 
-                    val intent = Intent(mContext,SonglistActivity::class.java)
+                    val intent = Intent(mContext, SonglistActivity::class.java)
                     intent.putParcelableArrayListExtra(
                         Constant.SONG_LIST,
                         v?.tag as ArrayList<SongItem>
                     )
-                    intent.putExtra(Constant.PAGE_TYPE, Constant.TYPE_RANKLIST)
+                    intent.putExtra(Constant.PAGE_TYPE, mType)
                     mContext?.startActivity(intent)
 
 
@@ -147,10 +156,20 @@ class RankAdapter<T>() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             }
 
             else -> {
-                if (mType == Constant.TYPE_MV) {
-                    if (viewType == 0) {
-                        return HeadHolder(getHeadTilteView("MV"))
+
+                if (viewType == 0) {
+                    var headTitle: String? = null
+                    when (mType) {
+                        Constant.TYPE_MV -> headTitle = "MV"
+                        Constant.TYPE_SONGLIST -> headTitle = "歌单"
+
+                        Constant.TYPE_NEW_SONG -> headTitle = "最新音乐"
+
                     }
+                    if (headTitle != null) {
+                        return HeadHolder(getHeadTilteView(headTitle))
+                    }
+
                 }
                 return CommonHolder(
                     CommonUtil.inflater(
@@ -201,6 +220,16 @@ class RankAdapter<T>() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             var author: String? = null
             var imgUrl: String? = null
             when (mType) {
+                Constant.TYPE_NEW_SONG -> {
+                    if (item is CategoryItem) {
+                        title = item.name
+                        author = item.artistName
+                        imgUrl = item.picUrl
+                        holder.itemView.tag = item.id
+                    }
+
+                }
+
                 Constant.TYPE_MV -> {
 
                     if (item is MVEntity) {

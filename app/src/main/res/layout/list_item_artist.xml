@@ -13,20 +13,23 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         >
 
 
         <TextView
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"
             android:id="@+id/artist_rank_tv"
             style="@style/base_text_style" />
 
         <TextView
             android:id="@+id/articst_name_tv"
             android:layout_toEndOf="@+id/artist_rank_tv"
+            android:textSize="@dimen/ts_22"
             style="@style/base_text_style"
             android:text="@{item.name}" />
 
@@ -35,7 +38,15 @@
             android:layout_marginTop="10dp"
             android:layout_below="@+id/articst_name_tv"
             android:layout_alignStart="@+id/articst_name_tv"
+            android:textSize="@dimen/ts_15"
             android:text='@{item.songer+"-"+item.album}' />
 
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/darker_gray"
+            />
     </RelativeLayout>
 </layout>

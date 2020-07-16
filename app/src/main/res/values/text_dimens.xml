@@ -6,7 +6,7 @@
 
 
     <dimen name="ts_12">12sp</dimen>
-
+    <dimen name="ts_15">15sp</dimen>
     <dimen name="ts_20">20sp</dimen>
     <dimen name="ts_22">22sp</dimen>
     <dimen name="ts_31">31sp</dimen>

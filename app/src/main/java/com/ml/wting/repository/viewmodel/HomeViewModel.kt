@@ -51,11 +51,13 @@ class HomeViewModel : BaseViewModel() {
 
     fun getNewSong(): LiveData<List<CategoryItem>?> {
 
-        request(apiService?.getNewSong()!!, object : RxCallBack<JsonObject> {
+        request(apiService.getNewSong(), object : RxCallBack<JsonObject> {
             override fun onResut(result: JsonObject) {
 
-                val songs = JsonUtil.toListBean(result.get("result"),CategoryItem::class.java)
-                newSongData.value = songs
+                val songs = JsonUtil.toListBean(result.get("result"), CategoryItem::class.java)
+                if (songs.size > 0) {
+                    newSongData.value = songs.subList(0, 5)
+                }
             }
 
 
@@ -71,7 +73,7 @@ class HomeViewModel : BaseViewModel() {
         request(apiService?.getRecommendMV()!!, object : RxCallBack<JsonObject> {
             override fun onResut(result: JsonObject) {
 
-                val songs = JsonUtil.toListBean(result.get("result"),CategoryItem::class.java)
+                val songs = JsonUtil.toListBean(result.get("result"), CategoryItem::class.java)
                 recommendMvData.value = songs
 
             }

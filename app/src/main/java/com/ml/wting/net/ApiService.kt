@@ -50,11 +50,16 @@ interface ApiService {
     @GET("artists")
     fun getSongerArtists(@Query("id") id:Int):Observable<JsonObject>
 
-    @GET("song/detai")
+    @GET("song/detail")
     fun  getSongDetail(@Query("ids") ids:Int):Observable<JsonObject>
 
     @GET("song/url")
     fun  getSongUrl(@Query("id") id:Int):Observable<JsonObject>
+
+
+    //歌单->歌单列表
+    @GET("playlist/detail")
+    fun getPlayList(@Query("id") id:Int):Observable<JsonObject>
 
 
 

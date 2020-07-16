@@ -16,6 +16,47 @@ class ArtistListVM : BaseViewModel() {
     }
 
 
+    fun getSongList(id: Int): LiveData<List<SongItem>> {
+
+        request(apiService.getPlayList(id), object : RxCallBack<JsonObject> {
+
+
+            override fun onResut(result: JsonObject) {
+
+                val tracksJS = result["playlist"].asJsonObject["tracks"].asJsonArray
+                val songList = arrayListOf<SongItem>()
+                tracksJS.forEach {
+
+                    val songJS = it.asJsonObject
+                    val albumJS = songJS["al"].asJsonObject
+                    val songer = songJS["ar"].asJsonArray[0].asJsonObject["name"]
+
+
+                    val songItem = SongItem(
+                        songJS["id"].asInt,
+                        songJS["name"].asString,
+                        songer.asString,
+                        albumJS["name"].asString,
+                        albumJS["picUrl"].asString
+                    )
+
+                    songList.add(songItem)
+
+
+                }
+                mArtistsLiveData.value = songList
+
+
+            }
+        })
+
+
+
+        return mArtistsLiveData
+
+    }
+
+
     fun getArtists(id: Int): LiveData<List<SongItem>> {
 
         request(apiService.getSongerArtists(id), object : RxCallBack<JsonObject> {

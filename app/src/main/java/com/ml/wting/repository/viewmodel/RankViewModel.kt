@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.JsonObject
 import com.ml.lib_base.rx.RxCallBack
+import com.ml.lib_base.util.APPLOG
 import com.ml.lib_base.util.JsonUtil
 import com.ml.wting.repository.model.*
 import com.ml.wting.ui.base.BaseViewModel
@@ -166,6 +167,7 @@ class RankViewModel : BaseViewModel() {
                 }
 
                 override fun onNext(t: RankEntity?) {
+                    APPLOG.printDebug("onNext__"+t)
                     if (t != null) {
                         val tackArray = t.playlist.tracks
                         val songList = arrayListOf<SongItem>()
@@ -187,6 +189,7 @@ class RankViewModel : BaseViewModel() {
                 }
 
                 override fun onError(t: Throwable?) {
+                    APPLOG.printDebug("error"+t?.message)
                 }
 
             })

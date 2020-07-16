@@ -9,6 +9,8 @@ object Constant {
 
     const val TYPE_RANKLIST = 3
 
+    const val TYPE_NEW_SONG=4;
+
     const val TYPE_DEFAULT=-1
 
     const val INVALID_VALUE=-1

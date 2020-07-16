@@ -24,16 +24,20 @@
             android:id="@+id/song_detail_name"
             style="@style/base_text_style"
             android:textSize="@dimen/ts_22"
-            android:textColor="@android:color/white"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:textColor="@android:color/black"
             android:text="@{detail.name}"
             />
 
 
         <TextView
             style="@style/base_text_style"
+            android:layout_centerHorizontal="true"
             android:layout_below="@+id/song_detail_name"
             android:textSize="@dimen/ts_12"
-            android:textColor="@android:color/white"
+            android:layout_marginTop="10dp"
+            android:textColor="@android:color/black"
             android:text="@{detail.songer}"
             />
 

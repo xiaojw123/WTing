@@ -6,8 +6,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
+import com.ml.lib_base.util.APPLOG
 import com.ml.lib_base.util.CommonUtil
 import java.lang.reflect.ParameterizedType
+import kotlin.reflect.KClass
 
 /**
  *
@@ -34,15 +36,24 @@ abstract class BaseRecyclerAdapter<T, VH : BaseRecyclerHolder, VB : ViewDataBind
 
 
         val itemView = getItemView(parent)
+
+
         val clss = javaClass.genericSuperclass as ParameterizedType
         val type = clss.actualTypeArguments[1] as Class<VH>
+        val cons = type.kotlin.constructors
+        cons.forEach {
 
-        val constructor = type.getDeclaredConstructor(
 
-            View::class.java
-        )
-        constructor.isAccessible = true
-        return constructor.newInstance(itemView)
+            if (it.parameters.size == 1) {
+                APPLOG.printDebug("contruct call")
+                return it.call(itemView)
+            }
+
+        }
+
+
+        APPLOG.printDebug("contruct default")
+        return BaseRecyclerHolder(itemView) as VH
 
 
     }
@@ -61,17 +72,17 @@ abstract class BaseRecyclerAdapter<T, VH : BaseRecyclerHolder, VB : ViewDataBind
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        if (mItems==null){
+        if (mItems == null) {
             return
         }
-        if (mItems?.size!!>0){
-            bindItemView(holder.itemView,position,mItems!!.get(position))
+        if (mItems?.size!! > 0) {
+            bindItemView(holder.itemView, position, mItems!!.get(position))
 
         }
     }
 
 
-    abstract fun bindItemView(itemView: View,postion:Int, item: T);
+    abstract fun bindItemView(itemView: View, postion: Int, item: T);
 
 
 }

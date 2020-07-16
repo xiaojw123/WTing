@@ -98,7 +98,6 @@ class HomeAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHold
             bannerHeight
         )
         banner.layoutParams = param
-        banner.setOnBannerListener(this)
         return banner
     }
 
@@ -119,6 +118,7 @@ class HomeAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHold
                 banner.addBannerLifecycleObserver(context as LifecycleOwner)
                 banner.adapter = HomeBannerAdapter(mBanners)
                 banner.indicator = CircleIndicator(context)
+                banner.setOnBannerListener(this)
                 banner.start()
             }
         } else if (holder is CategoryHolder) {

@@ -6,6 +6,8 @@ import android.widget.Toast
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ml.lib_base.util.CommonUtil
@@ -15,6 +17,7 @@ import com.ml.wting.repository.model.ArtistItem
 import com.ml.wting.repository.model.MVEntity
 import com.ml.wting.repository.model.RankEntity
 import com.ml.wting.repository.model.SongListItem
+import com.ml.wting.repository.viewmodel.HomeViewModel
 import com.ml.wting.repository.viewmodel.RankViewModel
 import com.ml.wting.ui.base.BaseActivity
 import com.ml.wting.util.Constant
@@ -35,19 +38,32 @@ class RankActivity : BaseActivity<ViewDataBinding, RankViewModel>() {
     override fun initView() {
 
 
+        var type= TYPE_DEFAULT
 
         val page_from=intent.getStringExtra(Constant.PAGE_FROM)
 
         if (TextUtils.equals(page_from,Constant.HOME_PAGE_MORE)){
+            val page_type=  intent.getIntExtra(PAGE_TYPE, TYPE_DEFAULT)
+            when(page_type){
+                HomeFragment.TYPE_S_NEW->{
+                    initNewSong()
+                    return
+                }
+                HomeFragment.TYPE_M_RECOMMEND->type=TYPE_MV
 
 
-            initMore()
-            return
+
+
+
+            }
+
+
+        }else{
+            type= intent.getIntExtra(PAGE_TYPE, TYPE_DEFAULT)
 
         }
 
 
-        val type = intent.getIntExtra(PAGE_TYPE, TYPE_DEFAULT)
         if (type == TYPE_DEFAULT) {
             CommonUtil.toast(this, "未知页面类型")
             return
@@ -76,30 +92,25 @@ class RankActivity : BaseActivity<ViewDataBinding, RankViewModel>() {
 
     }
 
-    private fun initMore() {
-        val page_type=  intent.getIntExtra(PAGE_TYPE, TYPE_DEFAULT)
-        when(page_type){
-            HomeFragment.TYPE_M_RECOMMEND->{
-
-
-                mViewModel.getNewSong().observe(this, Observer {
-
-                    rank_rlv.layoutManager=GridLayoutManager(this,2)
-                    rank_rlv.addItemDecoration(SpaceDecoration(10,true,0,this))
-                    rank_rlv.adapter=RankAdapter(page_type,it!!)
-                })
+    private fun initNewSong() {
+        mViewModel.getNewSong().observe(this, Observer {
+            val gm=GridLayoutManager(this, 2)
+            gm.spanSizeLookup=object :GridLayoutManager.SpanSizeLookup(){
+                override fun getSpanSize(position: Int): Int {
+                    if (position==0){
+                        return 2
+                    }
+                    return 1
+                }
 
             }
-            HomeFragment.TYPE_S_NEW->{
-
-            }
-
-        }
-
-
-
-
+            rank_rlv.layoutManager = gm
+            rank_rlv.addItemDecoration(SpaceDecoration(10, true, 1, this))
+            rank_rlv.adapter = RankAdapter(Constant.TYPE_NEW_SONG, it!!)
+        })
     }
+
+
 
     private fun initRankList() {
         mViewModel.getRankList().observe(this, Observer {
@@ -122,9 +133,18 @@ class RankActivity : BaseActivity<ViewDataBinding, RankViewModel>() {
 
         mViewModel.getSongList().observe(this, Observer {
 
+            val gm=GridLayoutManager(this, 2)
+            gm.spanSizeLookup=object :GridLayoutManager.SpanSizeLookup(){
+                override fun getSpanSize(position: Int): Int {
+                    if (position==0){
+                        return 2
+                    }
+                    return 1
+                }
 
-            rank_rlv.layoutManager=GridLayoutManager(this,2)
-            rank_rlv.addItemDecoration(SpaceDecoration(10,true,0,this))
+            }
+            rank_rlv.layoutManager=gm
+            rank_rlv.addItemDecoration(SpaceDecoration(10,true,1,this))
             rank_rlv.adapter=RankAdapter<SongListItem>(TYPE_SONGLIST,it)
 
 
