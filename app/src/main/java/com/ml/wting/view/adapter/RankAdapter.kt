@@ -3,13 +3,11 @@ package com.ml.wting.view.adapter
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.os.Parcelable
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.JsonObject
 import com.ml.lib_base.util.APPLOG
 import com.ml.lib_base.util.CommonUtil
 import com.ml.lib_base.util.DXUtil
@@ -20,12 +18,7 @@ import com.ml.wting.ui.home.MVDetailActivity
 import com.ml.wting.ui.home.SongDetailActivity
 import com.ml.wting.ui.home.SonglistActivity
 import com.ml.wting.util.Constant
-import io.reactivex.internal.fuseable.HasUpstreamObservableSource
-
-import kotlinx.android.synthetic.main.list_item_category.*
-import kotlinx.android.synthetic.main.list_item_songer.*
-import java.util.ArrayList
-import kotlin.reflect.typeOf
+import java.util.*
 
 class RankAdapter<T>() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -254,8 +247,8 @@ class RankAdapter<T>() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 }
                 Constant.TYPE_RANKLIST -> {
                     if (item is RankEntity) {
-                        title = item.playlist.name
-                        imgUrl = item.playlist.coverImgUrl
+                        title = item.name
+                        imgUrl = item.coverImgUrl
                         holder.itemView.tag = item.songList
                     }
 
@@ -274,7 +267,7 @@ class RankAdapter<T>() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             if (item is ArtistItem) {
 
                 holder.nameTv.setText(item.name)
-                holder.hotTv.setText(item.score.toString())
+                holder.hotTv.setText(item.score.toString()+"热度")
                 holder.rankTv.setText((position + 1).toString())
                 DrawableUtil.loadRound(mContext, item.picUrl, 10f, holder.avatarImg)
                 holder.itemView.tag = item.id

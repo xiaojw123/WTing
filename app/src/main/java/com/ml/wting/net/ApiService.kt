@@ -41,7 +41,7 @@ interface ApiService {
     fun  getArtistList():Observable<JsonObject>
 
     @GET("top/list")
-    fun  getRankList(@Query("idx") id:Int):Flowable<RankEntity>
+    fun  getRankList(@Query("idx") id:Int):Flowable<JsonObject>
 
 
     @GET("mv/detail")

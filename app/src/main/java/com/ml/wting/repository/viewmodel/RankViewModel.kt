@@ -1,5 +1,6 @@
 package com.ml.wting.repository.viewmodel
 
+import android.text.TextUtils
 import android.util.SparseArray
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
@@ -14,8 +15,11 @@ import io.reactivex.Flowable
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import org.intellij.lang.annotations.Flow
+import org.json.JSONObject
 import org.reactivestreams.Subscriber
 import org.reactivestreams.Subscription
+import java.util.function.Consumer
 
 class RankViewModel : BaseViewModel() {
 
@@ -43,8 +47,6 @@ class RankViewModel : BaseViewModel() {
 
         MutableLiveData<List<CategoryItem>?>()
     }
-
-    private var mSubscription: Subscription? = null
 
 
     fun getNewSong(): LiveData<List<CategoryItem>?> {
@@ -142,69 +144,63 @@ class RankViewModel : BaseViewModel() {
     //榜单排行
     fun getRankList(): LiveData<List<RankEntity>> {
 
-        val flowableArray = SparseArray<Flowable<RankEntity>>()
+        val flowableArray = SparseArray<Flowable<JsonObject>>()
         for (i in 0..3) {
             flowableArray.put(i, apiService.getRankList(i))
         }
 
 
         val mergedFlowable = Flowable.merge(
-            flowableArray[0],
-            flowableArray[1],
-            flowableArray[2],
-            flowableArray[3]
+            flowableArray[0]!!,
+            flowableArray[1]!!,
+            flowableArray[2]!!,
+            flowableArray[3]!!
         )
         val rankEntitys = arrayListOf<RankEntity>()
-        mergedFlowable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Subscriber<RankEntity> {
-                override fun onComplete() {
-                    mSubscription = null
-                    mRanLiveData.value = rankEntitys
-                }
 
-                override fun onSubscribe(s: Subscription?) {
-                    mSubscription = s!!
-                }
 
-                override fun onNext(t: RankEntity?) {
-                    APPLOG.printDebug("onNext__"+t)
-                    if (t != null) {
-                        val tackArray = t.playlist.tracks
-                        val songList = arrayListOf<SongItem>()
-                        for (track in tackArray) {
-                            val item = SongItem(
-                                track.get("id").asInt,
-                                track.get("name").asString,
-                                track.get("ar").asJsonArray[0].asJsonObject["name"].asString,
-                                track.get("al").asJsonObject["name"].asString,
+        val f =
+            mergedFlowable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
 
-                                track.get("al").asJsonObject["picUrl"].asString
+                    APPLOG.printDebug("resJS__" + it)
+                    val playListJS = it["playlist"].asJsonObject
 
-                            )
-                            songList.add(item)
-                            t.songList = songList
-                        }
-                        rankEntitys.add(t)
+                    val tracksJArray = playListJS["tracks"].asJsonArray
+
+                    val songList = arrayListOf<SongItem>()
+
+                    tracksJArray.forEach {
+
+                        val itemJS = it.asJsonObject
+                        val songItem = SongItem(
+                            itemJS["id"].asInt,
+                            itemJS["name"].asString,
+                            itemJS["ar"].asJsonArray[0].asJsonObject["name"].asString,
+                            itemJS["al"].asJsonObject["name"].asString,
+                            itemJS["al"].asJsonObject["picUrl"].asString
+                        )
+
+                        songList.add(songItem)
+
                     }
-                }
+                    val entity = RankEntity(
+                        playListJS["id"].asInt, playListJS["name"].asString,
+                        playListJS["coverImgUrl"].asString,
+                        songList
+                    )
+                    rankEntitys.add(entity)
+                    if (rankEntitys.size == 4) {
+                        APPLOG.printDebug("rankEnit Livedata +++")
+                        mRanLiveData.value = rankEntitys
+                    }
 
-                override fun onError(t: Throwable?) {
-                    APPLOG.printDebug("error"+t?.message)
-                }
 
-            })
-
+                })
+        taskDisposables.add(f)
 
         return mRanLiveData
 
-    }
-
-
-    override fun onCleared() {
-        super.onCleared()
-        if (mSubscription != null) {
-            mSubscription?.cancel()
-        }
     }
 
 

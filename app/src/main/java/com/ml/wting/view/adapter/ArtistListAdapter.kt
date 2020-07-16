@@ -1,6 +1,7 @@
 package com.ml.wting.view.adapter
 
 import android.view.View
+import com.ml.lib_base.util.APPLOG
 import com.ml.lib_base.util.CommonUtil
 import com.ml.lib_base.view.adapter.BaseRecyclerAdapter
 import com.ml.lib_base.view.adapter.BaseRecyclerHolder
@@ -28,7 +29,10 @@ class ArtistListAdapter(items: List<SongItem>) :
     }
 
     override fun bindItemView(itemView: View, postion: Int, item: SongItem) {
-        mBinding.artistRankTv.setText((postion+1).toString())
+
+        val rankNum=postion + 1
+        APPLOG.printDebug("bindview__pos__"+rankNum)
+        mBinding.artistRankTv.text=rankNum.toString()
         mBinding.item=item
         itemView.tag=item.id
     }
