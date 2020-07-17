@@ -45,21 +45,21 @@ interface ApiService {
 
 
     @GET("mv/detail")
-    fun getMVDetail(@Query("mvid") mvid:Int):Observable<JsonObject>
+    fun getMVDetail(@Query("mvid") mvid:Long):Observable<JsonObject>
 
     @GET("artists")
-    fun getSongerArtists(@Query("id") id:Int):Observable<JsonObject>
+    fun getSongerArtists(@Query("id") id:Long):Observable<JsonObject>
 
     @GET("song/detail")
-    fun  getSongDetail(@Query("ids") ids:Int):Observable<JsonObject>
+    fun  getSongDetail(@Query("ids") ids:Long):Observable<JsonObject>
 
     @GET("song/url")
-    fun  getSongUrl(@Query("id") id:Int):Observable<JsonObject>
+    fun  getSongUrl(@Query("id") id:Long):Observable<JsonObject>
 
 
     //歌单->歌单列表
     @GET("playlist/detail")
-    fun getPlayList(@Query("id") id:Int):Observable<JsonObject>
+    fun getPlayList(@Query("id") id:Long):Observable<JsonObject>
 
 
 

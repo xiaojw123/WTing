@@ -174,7 +174,7 @@ class RankViewModel : BaseViewModel() {
 
                         val itemJS = it.asJsonObject
                         val songItem = SongItem(
-                            itemJS["id"].asInt,
+                            itemJS["id"].asLong,
                             itemJS["name"].asString,
                             itemJS["ar"].asJsonArray[0].asJsonObject["name"].asString,
                             itemJS["al"].asJsonObject["name"].asString,
@@ -185,7 +185,7 @@ class RankViewModel : BaseViewModel() {
 
                     }
                     val entity = RankEntity(
-                        playListJS["id"].asInt, playListJS["name"].asString,
+                        playListJS["id"].asLong, playListJS["name"].asString,
                         playListJS["coverImgUrl"].asString,
                         songList
                     )

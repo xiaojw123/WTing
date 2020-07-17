@@ -49,7 +49,7 @@ class HomeCategoryAdapter(type: Int, items: List<CategoryItem>) :
                 mContext,
                 clss,
                 Constant.ID,
-                it.tag as Int
+                it.tag as Long
             )
 
         }

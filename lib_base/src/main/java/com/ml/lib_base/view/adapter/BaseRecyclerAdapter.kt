@@ -1,6 +1,7 @@
 package com.ml.lib_base.view.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -17,14 +18,13 @@ import kotlin.reflect.KClass
  * 适用于viewType，数据类型单一
  *
  */
-abstract class BaseRecyclerAdapter<T, VH : BaseRecyclerHolder, VB : ViewDataBinding>() :
+abstract class BaseRecyclerAdapter<T, VH : BaseRecyclerHolder<*>>() :
     RecyclerView.Adapter<VH>() {
 
 
     var mItems: List<T>? = null
 
     lateinit var mContext: Context
-    lateinit var mBinding: VB
 
 
     constructor(items: List<T>) : this() {
@@ -36,33 +36,36 @@ abstract class BaseRecyclerAdapter<T, VH : BaseRecyclerHolder, VB : ViewDataBind
 
 
         val itemView = getItemView(parent)
-
-
         val clss = javaClass.genericSuperclass as ParameterizedType
         val type = clss.actualTypeArguments[1] as Class<VH>
         val cons = type.kotlin.constructors
         cons.forEach {
 
 
-            if (it.parameters.size == 1) {
-                APPLOG.printDebug("contruct call")
-                return it.call(itemView)
-            }
+            Log.d("bradapter","param__"+it.parameters.size)
+
+
+
+//            if (it.parameters.size == 1) {
+                APPLOG.printDebug("contruct call"+it)
+                return it.call(null,itemView)
+//            }
 
         }
 
 
         APPLOG.printDebug("contruct default")
-        return BaseRecyclerHolder(itemView) as VH
+        return BaseRecyclerHolder<ViewDataBinding>(itemView) as VH
 
 
     }
 
 
     fun getItemView(parent: ViewGroup): View {
+
         mContext = parent.context
-        mBinding = CommonUtil.bindInflater(mContext, getItemLayoutRes(), parent)
-        return mBinding.root
+        return CommonUtil.inflater(mContext, getItemLayoutRes(), parent)
+
     }
 
     abstract fun getItemLayoutRes(): Int
@@ -76,13 +79,13 @@ abstract class BaseRecyclerAdapter<T, VH : BaseRecyclerHolder, VB : ViewDataBind
             return
         }
         if (mItems?.size!! > 0) {
-            bindItemView(holder.itemView, position, mItems!!.get(position))
+            bindItemView(holder, position, mItems!!.get(position))
 
         }
     }
 
 
-    abstract fun bindItemView(itemView: View, postion: Int, item: T);
+    abstract fun bindItemView(holder: VH, postion: Int, item: T);
 
 
 }

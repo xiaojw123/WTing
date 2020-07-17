@@ -12,29 +12,35 @@ import com.ml.wting.ui.home.SongDetailActivity
 import com.ml.wting.util.Constant
 
 class ArtistListAdapter(items: List<SongItem>) :
-    BaseRecyclerAdapter<SongItem, ArtistListAdapter.Holder, ListItemArtistBinding>(items) {
+    BaseRecyclerAdapter<SongItem, ArtistListAdapter.Holder>(items) {
 
 
-    inner class Holder(itemView: View) : BaseRecyclerHolder(itemView) {
+ open  inner class Holder(itemView: View) : BaseRecyclerHolder<ListItemArtistBinding>(itemView) {
 
         override fun onClick(v: View?) {
-            CommonUtil.sGotoPage(mContext,SongDetailActivity::class.java,
-            Constant.ID,
-            v?.tag as Int)
+            CommonUtil.sGotoPage(
+                v!!.context, SongDetailActivity::class.java,
+                Constant.ID,
+                v.tag as Long
+            )
+
         }
     }
 
     override fun getItemLayoutRes(): Int {
+
         return R.layout.list_item_artist
     }
 
-    override fun bindItemView(itemView: View, postion: Int, item: SongItem) {
 
-        val rankNum=postion + 1
-        APPLOG.printDebug("bindview__pos__"+rankNum)
-        mBinding.artistRankTv.text=rankNum.toString()
-        mBinding.item=item
-        itemView.tag=item.id
+    override fun bindItemView(holder: Holder, postion: Int, item: SongItem) {
+        if (holder.mBinding != null) {
+            val rankNum = postion + 1
+            holder.mBinding!!.artistRankTv.text = rankNum.toString()
+            holder.mBinding!!.item = item
+            holder.itemView.tag = item.id
+        }
+
     }
 
 

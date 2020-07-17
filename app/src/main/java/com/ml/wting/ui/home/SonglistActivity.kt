@@ -29,10 +29,7 @@ class SonglistActivity : BaseActivity<ViewDataBinding, ArtistListVM>() {
                 ArtistListAdapter(songList)
 
         } else {
-            val id = intent.getIntExtra(Constant.ID, Constant.INVALID_VALUE)
-
-
-
+            val id = getId()
             when (pageType) {
                 Constant.TYPE_SONGER -> {
                     mViewModel.getArtists(id).observe(this, Observer {
@@ -45,7 +42,6 @@ class SonglistActivity : BaseActivity<ViewDataBinding, ArtistListVM>() {
 
                 }
                 Constant.TYPE_SONGLIST -> {
-
                     mViewModel.getSongList(id).observe(this, Observer {
 
 

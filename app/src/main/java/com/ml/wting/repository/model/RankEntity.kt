@@ -1,10 +1,8 @@
 package com.ml.wting.repository.model
 
-import com.google.gson.JsonObject
-
 data class RankEntity(
 
-    val id:Int,
+    val id:Long,
 
     val name:String,
     val coverImgUrl:String,

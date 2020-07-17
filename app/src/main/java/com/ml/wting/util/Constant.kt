@@ -14,7 +14,7 @@ object Constant {
     const val TYPE_DEFAULT=-1
 
     const val INVALID_VALUE=-1
-
+    const val INVALID_ID=-1L
     const val PAGE_TYPE="pg_type";
 
     const val PAGE_FROM="pg_from"

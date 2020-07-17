@@ -18,7 +18,7 @@ class MVDetailViewModel : BaseViewModel() {
     }
 
 
-    fun getMVDetail(mvid: Int): LiveData<MVDetail> {
+    fun getMVDetail(mvid: Long): LiveData<MVDetail> {
 
 
         request(apiService.getMVDetail(mvid),

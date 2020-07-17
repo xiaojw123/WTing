@@ -5,7 +5,7 @@ import android.os.Parcelable
 
 
 data class SongItem(
-    val id: Int,//id
+    val id: Long,//id
     val name: String?,//歌名
 
     val songer: String?,//歌手
@@ -15,7 +15,7 @@ data class SongItem(
 
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readInt(),
+        parcel.readLong(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
@@ -23,7 +23,7 @@ data class SongItem(
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(id)
+        parcel.writeLong(id)
         parcel.writeString(name)
         parcel.writeString(songer)
         parcel.writeString(album)

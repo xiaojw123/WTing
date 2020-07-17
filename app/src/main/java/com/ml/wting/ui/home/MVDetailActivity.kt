@@ -18,8 +18,8 @@ class MVDetailActivity : BaseActivity<ActivityMvDetailBinding,MVDetailViewModel>
 
     override fun initView() {
 
-        val mvid=intent.getIntExtra(Constant.ID,Constant.INVALID_VALUE)
-        if (mvid==Constant.INVALID_VALUE){
+        val mvid=getId()
+        if (mvid==Constant.INVALID_ID){
             return
         }
         mViewModel.getMVDetail(mvid).observe(this, Observer{

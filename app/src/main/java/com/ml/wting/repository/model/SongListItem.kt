@@ -15,7 +15,7 @@ data class SongListItem(
     val creator: Creator,
     val description: String,
     val highQuality: Boolean,
-    val id: Int,
+    val id: Long,
     val name: String,
     val newImported: Boolean,
     val ordered: Boolean,

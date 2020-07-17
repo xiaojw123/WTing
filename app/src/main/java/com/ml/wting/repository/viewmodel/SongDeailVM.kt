@@ -20,23 +20,33 @@ class SongDeailVM : BaseViewModel() {
     }
 
 
-    fun getDetail(ids: Int): LiveData<SongItem> {
+    fun getDetail(ids: Long): LiveData<SongItem> {
         request(apiService.getSongDetail(ids),
 
             object : RxCallBack<JsonObject> {
+
+
                 override fun onResut(result: JsonObject) {
-                    val songsJArray = result["songs"].asJsonArray
-                    val songJS = songsJArray[0].asJsonObject
-                    val songer = songJS["ar"].asJsonArray[0].asJsonObject["name"]
-                    val albumJS = songJS["al"].asJsonObject
-                    val item = SongItem(
-                        songJS["id"].asInt,
-                        songJS["name"].asString,
-                        songer.asString,
-                        albumJS["name"].asString,
-                        albumJS["picUrl"].asString
-                    )
-                    mDetailLD.value = item
+                    if (result.has("songs")) {
+
+
+                        val songsJArray = result["songs"].asJsonArray
+                        if (songsJArray.size() > 0) {
+
+
+                            val songJS = songsJArray[0].asJsonObject
+                            val songer = songJS["ar"].asJsonArray[0].asJsonObject["name"]
+                            val albumJS = songJS["al"].asJsonObject
+                            val item = SongItem(
+                                songJS["id"].asLong,
+                                songJS["name"].asString,
+                                songer.asString,
+                                albumJS["name"].asString,
+                                albumJS["picUrl"].asString
+                            )
+                            mDetailLD.value = item
+                        }
+                    }
                 }
 
 
@@ -45,7 +55,7 @@ class SongDeailVM : BaseViewModel() {
         return mDetailLD
     }
 
-    fun getPlayUrl(id: Int): LiveData<String> {
+    fun getPlayUrl(id: Long): LiveData<String> {
 
         request(apiService.getSongUrl(id),
             object : RxCallBack<JsonObject> {

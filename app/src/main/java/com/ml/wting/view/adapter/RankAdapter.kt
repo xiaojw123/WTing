@@ -46,21 +46,21 @@ class RankAdapter<T>() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                         mContext!!,
                         SongDetailActivity::class.java,
                         Constant.ID,
-                        v?.tag as Int
+                        v?.tag as Long
                     )
 
                 Constant.TYPE_MV -> CommonUtil.sGotoPage(
                     mContext!!,
                     MVDetailActivity::class.java,
                     Constant.ID,
-                    v?.tag as Int
+                    v?.tag as Long
                 )
 
                 Constant.TYPE_SONGLIST, Constant.TYPE_SONGER -> CommonUtil.sGotoPage(
                     mContext!!,
                     SonglistActivity::class.java,
                     Constant.ID,
-                    v?.tag as Int,
+                    v?.tag as Long,
                     Constant.PAGE_TYPE,
                     mType
                 )
@@ -104,10 +104,7 @@ class RankAdapter<T>() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     }
 
-    inner class HeadHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-
-    }
+    inner class HeadHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     inner class SongerHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -186,7 +183,7 @@ class RankAdapter<T>() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             title_tv.setTextAppearance(R.style.text_bold_style)
         }
-        title_tv.setTextSize(32f)
+        title_tv.setTextSize(18f)
         title_tv.setPadding(0, DXUtil.dip2px(mContext!!, 20f), 0, 0)
         title_tv.setText(title)
         return title_tv

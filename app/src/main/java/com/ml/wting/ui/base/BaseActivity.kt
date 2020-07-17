@@ -42,8 +42,8 @@ abstract class BaseActivity<T : ViewDataBinding, VM : ViewModel> : AppCompatActi
     abstract fun initView();
     abstract fun getLayoutRes(): Int
 
-    fun getId(): Int {
-        return intent.getIntExtra(Constant.ID, Constant.INVALID_VALUE)
+    fun getId(): Long {
+        return intent.getLongExtra(Constant.ID, Constant.INVALID_ID)
     }
 
 }

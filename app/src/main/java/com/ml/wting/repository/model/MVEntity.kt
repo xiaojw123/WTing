@@ -6,7 +6,7 @@ data class MVEntity (
 
 
 
-    val id:Int,
+    val id:Long,
 
 
     val number:String,

@@ -47,7 +47,7 @@ open class BaseViewModel:ViewModel(){
 
                 override fun onError(e: Throwable) {
                     APPLOG.printDebug("onError__"+e.message)
-                    callBack.onError()
+                    callBack.onError(null)
                 }
 
             }
@@ -82,7 +82,7 @@ open class BaseViewModel:ViewModel(){
 
                 override fun onError(e: Throwable) {
                     APPLOG.printDebug("onError__"+e)
-                    callBack.onError()
+                    callBack.onError(null)
                 }
 
             }

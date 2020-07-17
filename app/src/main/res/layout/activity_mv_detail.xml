@@ -10,104 +10,91 @@
 
     </data>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+
+    <merge>
 
 
-        <LinearLayout
+        <VideoView
+            android:id="@+id/mv_detail_video"
+            android:layout_width="match_parent"
+            android:layout_height="300dp" />
+
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_marginTop="300dp">
 
 
-            <VideoView
-                android:id="@+id/mv_detail_video"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="300dp" />
-
-            <TextView
-                style="@style/text_bold_style"
-                android:textSize="@dimen/ts_22"
-                android:text="@{detail.name}"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
 
-         <LinearLayout
-             android:layout_marginLeft="10dp"
-             android:orientation="horizontal"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content">
-
-             <TextView
-                 style="@style/base_text_style"
-                 android:text='@{@string/publish+detail.publishTime}'
-                 />
-
-             <TextView
-                 style="@style/base_text_style"
-                 android:layout_marginLeft="30dp"
-                 android:text='@{@string/play_count+detail.playCount}'
-                 />
+                <TextView
+                    style="@style/text_bold_style"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="@{detail.name}"
+                    android:textSize="@dimen/ts_22" />
 
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/base_text_style"
+                        android:text='@{@string/publish+detail.publishTime}' />
+
+                    <TextView
+                        style="@style/base_text_style"
+                        android:layout_marginLeft="30dp"
+                        android:text='@{@string/play_count+detail.playCount}' />
 
 
+                </LinearLayout>
 
 
-         </LinearLayout>
+                <TextView
+                    style="@style/base_text_style"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@{detail.desc}" />
 
 
-
-            <TextView
-                style="@style/base_text_style"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="10dp"
-                android:text="@{detail.desc}"
-                />
+                <TextView
+                    style="@style/base_text_style"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:text='@{@string/like+detail.likeCount}' />
 
 
-            <TextView
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
-                style="@style/base_text_style"
-                android:text='@{@string/like+detail.likeCount}'
-                />
+                <TextView
+                    style="@style/base_text_style"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text='@{@string/collection++detail.subCount}' />
+
+                <TextView
+                    style="@style/base_text_style"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text='@{@string/comment+detail.commentCount}' />
 
 
-            <TextView
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                style="@style/base_text_style"
-                android:text='@{@string/collection++detail.subCount}'
-                />
-
-            <TextView
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                style="@style/base_text_style"
-                android:text='@{@string/comment+detail.commentCount}'
-                />
+                <TextView
+                    style="@style/base_text_style"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text='@{@string/share+detail.shareCount}' />
 
 
-            <TextView
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                style="@style/base_text_style"
-                android:text='@{@string/share+detail.shareCount}'
-                />
+            </LinearLayout>
 
-
-
-
-
-
-
-
-        </LinearLayout>
-
-    </ScrollView>
+        </ScrollView>
+    </merge>
 </layout>

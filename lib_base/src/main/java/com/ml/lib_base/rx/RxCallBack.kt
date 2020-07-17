@@ -1,5 +1,9 @@
 package com.ml.lib_base.rx
 
+import android.text.TextUtils
+import android.widget.Toast
+import com.ml.lib_base.util.CommonUtil
+
 interface RxCallBack<T> {
 
 
@@ -8,7 +12,10 @@ interface RxCallBack<T> {
 
     }
 
-    fun onError() {
+    fun onError(msg:String?) {
+        if (TextUtils.isEmpty(msg)){
+            return
+        }
 
     }
 

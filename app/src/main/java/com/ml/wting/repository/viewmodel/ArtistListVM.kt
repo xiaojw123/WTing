@@ -16,7 +16,7 @@ class ArtistListVM : BaseViewModel() {
     }
 
 
-    fun getSongList(id: Int): LiveData<List<SongItem>> {
+    fun getSongList(id: Long): LiveData<List<SongItem>> {
 
         request(apiService.getPlayList(id), object : RxCallBack<JsonObject> {
 
@@ -33,7 +33,7 @@ class ArtistListVM : BaseViewModel() {
 
 
                     val songItem = SongItem(
-                        songJS["id"].asInt,
+                        songJS["id"].asLong,
                         songJS["name"].asString,
                         songer.asString,
                         albumJS["name"].asString,
@@ -57,7 +57,7 @@ class ArtistListVM : BaseViewModel() {
     }
 
 
-    fun getArtists(id: Int): LiveData<List<SongItem>> {
+    fun getArtists(id: Long): LiveData<List<SongItem>> {
 
         request(apiService.getSongerArtists(id), object : RxCallBack<JsonObject> {
 
@@ -75,7 +75,7 @@ class ArtistListVM : BaseViewModel() {
                     val albumPicUrl = alumJS.get("picUrl").asString
 
                     val songItem = SongItem(
-                        songJS.get("id").asInt,
+                        songJS.get("id").asLong,
                         songJS.get("name").asString,
                         songer,
                         album,
