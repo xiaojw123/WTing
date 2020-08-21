@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+
+
+    >
+
+
+
+
+    <ImageView
+        android:id="@+id/ctrl_play_img"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@mipmap/ic_action_pause"
+        />
+
+
+
+    <SeekBar
+        android:id="@+id/ctrl_skb"
+        app:layout_constraintBottom_toBottomOf="@+id/ctrl_play_img"
+        app:layout_constraintTop_toTopOf="@+id/ctrl_play_img"
+        app:layout_constraintLeft_toRightOf="@+id/ctrl_play_img"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        app:layout_constraintRight_toLeftOf="@+id/ctrl_fullscreen_img"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:maxHeight="4dp"
+        android:minHeight="2dp"
+        android:thumb="@drawable/bg_thumb"
+        android:thumbOffset="0dp"
+        android:progressDrawable="@drawable/bg_ctrl_progress"
+        />
+
+
+
+    <ImageView
+        android:id="@+id/ctrl_fullscreen_img"
+        app:layout_constraintRight_toRightOf="parent"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@mipmap/ic_action_fullscreen"
+        />
+    <TextView
+        android:id="@+id/ctrl_curtime_tv"
+        app:layout_constraintLeft_toLeftOf="@+id/ctrl_skb"
+        app:layout_constraintBottom_toTopOf="@+id/ctrl_skb"
+        android:layout_marginLeft="18dp"
+        android:layout_marginBottom="5dp"
+        style="@style/base_text_style"
+        android:textColor="@android:color/white"
+        android:text="00:00"
+        />
+    <TextView
+        android:id="@+id/ctrl_tolatime_tv"
+        app:layout_constraintBottom_toBottomOf="@+id/ctrl_curtime_tv"
+        app:layout_constraintRight_toRightOf="@+id/ctrl_skb"
+        android:layout_marginRight="18dp"
+        style="@style/base_text_style"
+        android:textColor="@android:color/white"
+        android:text="00:00"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

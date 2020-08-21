@@ -65,7 +65,7 @@ object CommonUtil {
     }
 
     //    param key,value..
-    fun <T:Any> sGotoPage(context: Context, clss: Class<T>, vararg params: Any) {
+    fun <T : Any> sGotoPage(context: Context, clss: Class<T>, vararg params: Any) {
         val intent = Intent(context, clss)
         var isSwitch = true
         var key: String? = null
@@ -115,6 +115,16 @@ object CommonUtil {
 
     fun <T> gotoPage(context: Context, clss: Class<T>) {
         gotoPage(context, clss, null)
+    }
+
+
+    fun setOnClicks(li: View.OnClickListener, vararg views: View) {
+
+        for (view in views) {
+            view.setOnClickListener(li)
+        }
+
+
     }
 
 

@@ -14,10 +14,13 @@
     <merge>
 
 
-        <VideoView
-            android:id="@+id/mv_detail_video"
-            android:layout_width="match_parent"
-            android:layout_height="300dp" />
+            <com.ml.wting.view.CustomVideoView
+                android:id="@+id/mv_detail_video"
+                android:layout_width="match_parent"
+                android:layout_height="300dp" />
+
+
+
 
         <ScrollView
             android:layout_width="match_parent"
